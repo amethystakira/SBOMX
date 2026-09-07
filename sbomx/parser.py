@@ -62,5 +62,5 @@ def parse_pyproject(project_path):
     # If dependencies are not defined, use an empty list.
     dependencies = project_data.get("dependencies", [])
 
-    # Return the raw dependency specifications.
-    return dependencies
+    # Convert every dependency into structured data.
+    return [parse_dependency(dependency) for dependency in dependencies]
