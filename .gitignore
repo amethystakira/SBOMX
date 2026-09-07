@@ -1,5 +1,12 @@
+# Python virtual environment
 .venv/
+
+# Python bytecode/cache files
 __pycache__/
 *.pyc
+
+# macOS metadata
 .DS_Store
+
+# Generated Python package metadata
 *.egg-info/

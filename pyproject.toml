@@ -1,12 +1,38 @@
+# Defines how Python should build/install this project.
 [build-system]
+
+# Setuptools is responsible for building the package.
 requires = ["setuptools"]
+
+# Tells Python to use setuptools' build backend.
 build-backend = "setuptools.build_meta"
 
+
+# Main metadata about the SBOMX package.
 [project]
+
+# Name used when installing the package.
 name = "sbomx"
+
+# Current project version.
 version = "0.1.0"
+
+# Short description of what SBOMX does.
 description = "A software bill of materials generator for dependency discovery and security analysis"
+
+# SBOMX requires Python 3.9 or newer.
 requires-python = ">=3.9"
 
+
+# Defines commands that become available after installation.
 [project.scripts]
+
+# Maps the terminal command:
+#     sbomx
+#
+# to:
+#     sbomx.cli:main
+#
+# In other words, running "sbomx" calls the main()
+# function inside sbomx/cli.py.
 sbomx = "sbomx.cli:main"
