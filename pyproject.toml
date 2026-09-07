@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sbomx"
+version = "0.1.0"
+description = "A software bill of materials generator for dependency discovery and security analysis"
+requires-python = ">=3.9"
+
+[project.scripts]
+sbomx = "sbomx.cli:main"
