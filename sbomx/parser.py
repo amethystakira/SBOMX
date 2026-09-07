@@ -64,3 +64,22 @@ def parse_pyproject(project_path):
 
     # Convert every dependency into structured data.
     return [parse_dependency(dependency) for dependency in dependencies]
+
+def parse_requirements(project_path):
+    # locate the requirements.txt file.
+    requirements_file = Path(project_path) / "requirements.txt"
+
+    # read all line from the file.
+    with requirements_file.open("r", encoding="utf=8") as file:
+        lines = file.readlines()
+    
+    # remove comments and empty lines.
+    dependencies = [
+        line.strip()
+        for line in lines
+        if line.strip() and not line.startswith("#")
+    ]
+
+    # Convert each dependency into structured data.
+    return [parse_dependency(dependency) for dependency in dependencies]
+        
