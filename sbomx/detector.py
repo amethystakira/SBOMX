@@ -7,4 +7,6 @@ def detect_ecosystem(project_path):
         return "python"
     if (project / "pyproject.toml").exists():
         return "python"
+    if (project/ "package.json").exists():
+        return "node"
     return "unknown"
