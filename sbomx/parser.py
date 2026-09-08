@@ -1,5 +1,4 @@
 from os import path
-from _typeshed import importlib
 import json #reads package.json files.
 import re
 import tomllib
@@ -73,7 +72,7 @@ def parse_requirements(project_path):
     requirements_file = Path(project_path) / "requirements.txt"
 
     # read all line from the file.
-    with requirements_file.open("r", encoding="utf=8") as file:
+    with requirements_file.open("r", encoding="utf-8") as file:
         lines = file.readlines()
     
     # remove comments and empty lines.
@@ -91,16 +90,16 @@ def parse_package_json(project_path):
     package_file = Path(project_path) / "package.json"
 
     #open and parse the JSON file
-    with package_file.open("r", encoding ="utf=8") as file:
-        data= json.load(file)
+    with package_file.open("r", encoding="utf-8") as file:
+        data = json.load(file)
     
     # Get runtime dependencies from the package.json.
     dependencies = data.get("dependencies", {})
 
     # Convert each dependency into structured data.
-    return{
+    return [
         parse_dependency(f"{name}{version}")
         for name, version in dependencies.items()
-    }
+    ]
 
         

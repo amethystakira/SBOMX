@@ -1,24 +1,44 @@
 from pathlib import Path
 
+from .component import Component
+from .detector import detect_ecosystem
+from .parser import parse_package_json, parse_pyproject,parse_requirements
+from .sbom import SBOM
+
 
 def scan_project(project_path):
     # Convert the supplied path into a Path object so we can
     # easily perform filesystem checks.
     project = Path(project_path)
 
-    # Make sure the supplied path actually exists.
-    # Scanning a path that does not exist would otherwise
-    # produce confusing errors later.
-    if not project.exists():
-        raise FileNotFoundError(f"Project not found: {project}")
+    #detect the project ecosystem
+    detection = detect_ecosystem(project)
+    ecosystem = detection["ecosystem"]
 
-    # Make sure the path points to a directory rather than
-    # an individual file.
-    if not project.is_dir():
-        raise NotADirectoryError(f"Not a directory: {project}")
+    sbom = SBOM()
 
-    # Return the validated project path.
-    #
-    # Later this function will become the starting point
-    # for the complete SBOM scanning pipeline.
-    return project
+    # parse python project dependencies
+
+    if ecosystem == "python":
+        if (project / "pyproject.toml").exists():
+            dependencies = parse_pyproject(project)
+        elif (project / "requirements.txt").exists():
+            dependencies = parse_requirements(project)
+        else:
+            dependencies = []
+    
+    # parse node.js project dependencies
+    elif ecosystem == "node":
+        dependencies = parse_package_json(project)
+    
+    # return an empty sbom for unsupported ecosysyten
+    else:
+        dependencies= []
+    
+    # convert parsed dependencies into sbom components.
+    for dependency in dependencies:
+        component = Component.from_dependency(dependency, ecosystem)
+        sbom.add_component(component)
+    
+    return sbom
+    
