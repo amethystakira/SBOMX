@@ -1,13 +1,29 @@
+import argparse #handles terminal arguments
+from .scanner import scan_project # runs the SBOM scanner
+
+
 def main():
-    # Main entry point for the SBOMX command-line application.
-    # This function will eventually handle commands such as:
-    #     sbomx scan .
-    #     sbomx scan ./my-project
-    print("SBOMX")
+    # create the command line argument parser
+    parser = argparse.ArgumentParser(description="Generate a Software Bill of Materials.")
 
+    # Add the project path argument
+    parser.add_argument("project", help="Path to the project to scan.")
 
-# This condition is true when this file is executed directly.
-# It prevents main() from running automatically when cli.py is imported
-# by another Python module.
+    # Add the output file argument.
+    parser.add_argument("-o", "--output", default="sbom.json", help="Output JSON file.")
+
+    # Read the arguments from the terminal.
+    args = parser.parse_args()
+
+    # Scan the project
+    sbom = scan_project(args.project)
+
+    # Save the generated SBOM
+    sbom.to_json(args.output)
+
+    # tell the user where the SBOM was saved
+    print(f"SBOM generated: {args.output}")
+
 if __name__ == "__main__":
     main()
+    
