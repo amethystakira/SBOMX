@@ -74,21 +74,6 @@ sbomx /path/to/project -o sbom.json
 }
 ```
 
-## Project Structure
-
-SBOMX/
-├── sbomx/
-│ ├── cli.py
-│ ├── component.py
-│ ├── detector.py
-│ ├── parser.py
-│ ├── sbom.py
-│ └── scanner.py
-├── .gitignore
-├── pyproject.toml
-└── README.md
-
-
 ## How It Works
 
 Project
