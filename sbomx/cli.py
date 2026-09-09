@@ -24,6 +24,7 @@ def main():
     
         # tell the user where the SBOM was saved
         print(f"SBOM generated: {args.output}")
+        print(f"Components found: {len(sbom.components)}")
     
     except(FileNotFoundError, NotADirectoryError) as error:
         # show clean error instead of a traceback
