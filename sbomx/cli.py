@@ -15,15 +15,19 @@ def main():
     # Read the arguments from the terminal.
     args = parser.parse_args()
 
-    # Scan the project
-    sbom = scan_project(args.project)
-
-    # Save the generated SBOM
-    sbom.to_json(args.output)
-
-    # tell the user where the SBOM was saved
-    print(f"SBOM generated: {args.output}")
+    try:
+        # Scan the project
+        sbom = scan_project(args.project)
+    
+        # Save the generated SBOM
+        sbom.to_json(args.output)
+    
+        # tell the user where the SBOM was saved
+        print(f"SBOM generated: {args.output}")
+    
+    except(FileNotFoundError, NotADirectoryError) as error:
+        # show clean error instead of a traceback
+        parser.error(str(error))
 
 if __name__ == "__main__":
     main()
-    

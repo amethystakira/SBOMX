@@ -11,6 +11,15 @@ def scan_project(project_path):
     # easily perform filesystem checks.
     project = Path(project_path)
 
+    # make sure the supplied path exists
+    if not project.exists():
+        raise FileNotFoundError(f"Project not found: {project}")
+    
+    # Make sure the supplied path is a directory
+    if not project.is_dir():
+        raise NotADirectoryError(f"Not a directory: {project}")
+
+
     #detect the project ecosystem
     detection = detect_ecosystem(project)
     ecosystem = detection["ecosystem"]
