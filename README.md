@@ -12,6 +12,19 @@ A lightweight terminal application that generates a Software Bill of Materials (
 - Validates project paths.
 - Displays the number of discovered components.
 
+## Why SBOM Matters
+
+An SBOM (Software Bill of Materials) is an inventory of all software dependencies and components used in a project.
+
+SBOMX is useful because it:
+
+- Provides visibility into project dependencies.
+- Helps identify security vulnerabilities in components.
+- Improves software supply-chain security.
+- Can support standardized formats such as SPDX and CycloneDX.
+
+The current version of SBOMX focuses on discovering dependencies and generating the SBOM. Vulnerability detection can be added as a future feature.
+
 ## Installation
 
 ### 1. Clone the repository
